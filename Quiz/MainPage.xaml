@@ -1,0 +1,48 @@
+﻿<Page
+    x:Class="Quiz.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Quiz"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="using:Quiz.ViewModels"
+    mc:Ignorable="d">
+
+    <Page.DataContext>
+        <vm:HomeViewModel />
+    </Page.DataContext>
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <CommandBar Name="CB" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True" Grid.Row="0">
+            <CommandBar.Content>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Quiz {}" Name="CBTitle" FontWeight="Bold" Margin="12,14" TextTrimming="WordEllipsis" />
+                </StackPanel>
+            </CommandBar.Content>
+
+            <AppBarButton Label="Adicionar" Icon="Add" Name="Add" Click="Add_Click" />
+
+            <CommandBar.SecondaryCommands>
+                <AppBarButton Label="Sobre" Name="About" Click="About_Click" />
+            </CommandBar.SecondaryCommands>
+        </CommandBar>
+            <StackPanel Grid.Row="1">
+            <TextBlock Text="Bem-vindo ao Quiz {}" Name="Welcome" FontWeight="Bold" FontSize="20" HorizontalAlignment="Center" Margin="0 0 10 0" TextWrapping="Wrap" />
+                <TextBlock Text="Selecione a linguagem de programação desejada e responda à perguntas sobre ela!" RelativePanel.Below="Welcome" HorizontalAlignment="Center" Margin="10" TextWrapping="Wrap" />
+            </StackPanel>
+            <ListBox ItemsSource="{x:Bind HomeViewModel.Items}" Name="ListCategories" xmlns:m="using:Quiz.Models" Grid.Row="2" SelectionChanged="ListCategories_SelectionChanged">
+                <ListBox.ItemTemplate>
+                    <DataTemplate x:DataType="m:Home">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{x:Bind Title}" Margin="4" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Grid>
+</Page>
